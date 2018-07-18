@@ -1,104 +1,86 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+import sys
+from random import seed, randint
 
-# C extensions
-*.so
 
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
+try:
+    arg_for_seed, upper_bound, length = input('Enter three nonnegative integers: ').split()
+except ValueError:
+    print('Incorrect input, giving up.')
+    sys.exit()
+try:
+    arg_for_seed, upper_bound, length = int(arg_for_seed), int(upper_bound), int(length)
+    if arg_for_seed < 0 or upper_bound < 0 or length < 0:
+        raise ValueError
+except ValueError:
+    print('Incorrect input, giving up.')
+    sys.exit()
 
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
+seed(arg_for_seed)
+L = [randint(0, upper_bound) for _ in range(length)]
+print('\nThe generated list L is:')
+print('  ', L)
 
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
+L_1 = []
+L_2 = []
+L_3 = []
+elements_to_keep = []
 
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-.hypothesis/
-.pytest_cache/
+#This is elements to keep
 
-# Translations
-*.mo
-*.pot
+number_no_repeat = list(set(L))
+number_no_repeat.sort()
 
-# Django stuff:
-*.log
-local_settings.py
-db.sqlite3
 
-# Flask stuff:
-instance/
-.webassets-cache
+#elements_to_keep = [value for index,value in enumerate(number_no_repeat) if index % 2 ==0]
+L_0 = list(set(L))
+L_0.sort()
+elements_to_keep = []
+for index,value in enumerate(L_0):
+	if index % 2 == 0:
+		elements_to_keep.append(value)
+		
+	
 
-# Scrapy stuff:
-.scrapy
 
-# Sphinx documentation
-docs/_build/
 
-# PyBuilder
-target/
 
-# Jupyter Notebook
-.ipynb_checkpoints
 
-# pyenv
-.python-version
 
-# celery beat schedule file
-celerybeat-schedule
+#This is list_1
 
-# SageMath parsed files
-*.sage.py
 
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
+#L_1 = [l for l in L if l in elements_to_keep]
+L_1 = [value for value in L if value in elements_to_keep]
 
-# Spyder project settings
-.spyderproject
-.spyproject
 
-# Rope project settings
-.ropeproject
+#This is list_2
 
-# mkdocs documentation
-/site
+L_2 = list(set(L_1))
 
-# mypy
-.mypy_cache/
+#How to use sort
+L_2.sort(key = L_1.index)
+
+#At last,I finally finished it!
+
+def get_list(n_list):
+    result = []
+    for temp in (n_list[i: j] for i in range(len(n_list)) for j in reversed(range(len(n_list)+1)) if i < j):
+        if sorted(list(set(temp))) == list(range(min(temp), max(temp)+1)) and len(temp) > len(result):
+            result = temp
+    return result
+
+ 
+L_3 = get_list(L)
+
+
+    
+print('\nThe elements to keep in L_1 and L_2 are:')
+print('  ', elements_to_keep)
+print('\nHere is L_1:')
+print('  ', L_1)
+print('\nHere is L_2:')
+print('  ', L_2)
+print('\nHere is L_3:')
+print('  ', L_3)
+
+
